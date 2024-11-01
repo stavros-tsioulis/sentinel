@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest"
 import dayjs from "dayjs"
-import RoutineScheduler from "./RoutineScheduler"
+import { RoutineScheduler } from "./RoutineScheduler.js"
 
 describe("RoutineScheduler", () => {
   const startDate = dayjs("2024-08-07T14:12:49.249Z")

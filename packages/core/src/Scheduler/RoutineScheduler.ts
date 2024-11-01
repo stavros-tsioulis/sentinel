@@ -1,5 +1,5 @@
-import dayjs, { Dayjs } from "dayjs"
-import Scheduler from "./Scheduler";
+import dayjs, { type Dayjs } from "dayjs"
+import { Scheduler } from "./Scheduler.js";
 
 export type SchedulerRepeatWellKnownTypes = "yearly" | "monthly" | "monthly@day" | "biweekly" | "weekly" | "daily" | "hourly"
 
@@ -18,7 +18,7 @@ export type SchedulerDateTimeCustom = {
   }
 }
 
-export default class RoutineScheduler extends Scheduler {
+export class RoutineScheduler extends Scheduler {
   protected breakNextLoop = false
   protected intervalId: NodeJS.Timeout | null = null
   protected timeoutId: NodeJS.Timeout | null = null
@@ -108,7 +108,7 @@ export default class RoutineScheduler extends Scheduler {
 
         return next.diff(now)
       }
-      
+
       case 'monthly': {
         const next = dayjs()
           .date(dateModel.date())

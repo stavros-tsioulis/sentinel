@@ -1,11 +1,10 @@
 {
-	"include": ["src", "index.ts"],
+	"include": ["src", "index.ts", "index.d.ts"],
 	"compilerOptions": {
 		"declaration": true,
 		"strict": true,
-		"moduleResolution": "Bundler",
 		"target": "ES2022",
-		"module": "ES6",
+		"module": "NodeNext",
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"verbatimModuleSyntax": true,

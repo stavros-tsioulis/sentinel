@@ -1,11 +1,13 @@
 {
-  "name": "core",
+  "name": "@sentinel/core",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

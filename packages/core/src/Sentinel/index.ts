@@ -1,2 +1,2 @@
-export * from "./Sentinel"
-export * from "./SentinelWatchSource"
+export * from "./Sentinel.js"
+export * from "./SentinelWatchSource.js"

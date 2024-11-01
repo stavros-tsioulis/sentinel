@@ -1,6 +1,6 @@
-import Scheduler from "./Scheduler";
+import { Scheduler } from "./Scheduler.js";
 
-export default class IntervalScheduler extends Scheduler {
+export class IntervalScheduler extends Scheduler {
   protected intervalId: NodeJS.Timeout | null = null
 
   constructor(

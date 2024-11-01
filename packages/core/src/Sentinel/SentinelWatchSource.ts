@@ -1,12 +1,17 @@
 import { EventEmitter } from "typed-events";
-import type Scheduler from "../Scheduler/Scheduler";
+import type { Scheduler } from "../Scheduler/Scheduler.js";
 
 export type SentinelWatchSourceEvents<T> = {
   data: [data: T]
 }
 
-export default abstract class SentinelWatchSource<T> extends EventEmitter<SentinelWatchSourceEvents<T>> {
-  constructor(protected scheduler: Scheduler) {
+export type GetSentinelWatchSourceDataPayload<WatchSource extends SentinelWatchSource<any>> =
+  Parameters<WatchSource["_dataEvnt"]>[0]["data"]
+
+export class SentinelWatchSource<T> extends EventEmitter<SentinelWatchSourceEvents<T>> {
+  public _dataEvnt = (_: SentinelWatchSourceEvents<T>) => {}
+
+  protected constructor(protected scheduler: Scheduler) {
     super()
     this.scheduler.on('trigger', this.onTrigger.bind(this))
   }

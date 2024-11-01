@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest"
-import IntervalScheduler from "./IntervalScheduler"
+import { IntervalScheduler } from "./IntervalScheduler.js"
 
 describe("IntervalScheduler", () => {
   beforeEach(() => {

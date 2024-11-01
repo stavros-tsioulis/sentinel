@@ -1,20 +1,25 @@
 import { EventEmitter } from "typed-events";
-import SentinelWatchSource from "./SentinelWatchSource";
+import type { SentinelWatchSource, GetSentinelWatchSourceDataPayload } from "./SentinelWatchSource.js";
 
 export class SentinelDataEventPayload<WatchSource extends SentinelWatchSource<any>> {
   source!: WatchSource
-  data!: WatchSource extends SentinelWatchSource<infer V> ? V : never
+  data!: GetSentinelWatchSourceDataPayload<WatchSource>
 }
 
-export type SentinelEvents = {
-  data: [payload: any]
+export type SentinelEvents<WatchSource extends SentinelWatchSource<any>> = {
+  watcherData: [payload: SentinelDataEventPayload<WatchSource>]
 }
 
-export default class Sentinel<WatchSource extends SentinelWatchSource<any>> extends EventEmitter<SentinelEvents> {
+export class Sentinel<WatchSource extends SentinelWatchSource<any>> extends EventEmitter<SentinelEvents<WatchSource>> {
   constructor(
     protected sources: WatchSource[] = []
   ) {
     super()
+    this.sources.forEach(source => {
+      source.on('data', (...data) => {
+        this.emit('watcherData', { data, source })
+      })
+    })
   }
 
   public start() {
@@ -25,9 +30,5 @@ export default class Sentinel<WatchSource extends SentinelWatchSource<any>> exte
   public stop() {
     this.sources.forEach(source => source.stop())
     return this
-  }
-
-  public isPayloadInstanceOf<T>(payload: SentinelDataEventPayload<SentinelWatchSource<any>>, source: typeof SentinelWatchSource<T>): payload is SentinelDataEventPayload<SentinelWatchSource<T>> {
-    return payload.source instanceof source
   }
 }
